@@ -57,6 +57,11 @@ public class Certification {
     static float P;
     static float Vp;
     static float Cgf;
+    // Резерв
+    static float Tnp;
+    static float Tnrez;
+    static float Tasp;
+
 
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -70,31 +75,63 @@ public class Certification {
 
     }
     public static void print() {
-        System.out.println("1.Реалiзацiя результатiв реалiзацii методики формування партнерств ПАТ в розвитку систем ТО та ПР АТЗ");
-        System.out.println("2.Визначення потенцiйних базових пiдприємств в сферi надання послуг з ТО та ПР транспортних засобiв");
-        System.out.println("3.Подача органом сертифiкацii пропозицii проходження сертифiкацii потенцiйному ПАТ-лiдеру.");
-        System.out.println("4.Керiвництво пiдприємства погоджується на сертифiкацiю?(Y/N)");
-        String result = null;
+        System.out.println("І. Етап ідентифікації потенційних базових підприємств");
+        System.out.println("1.Проведення прикладного дослідження, шляхом опитування представників ПАТ" +
+                " щодо визначення фактичних значень оціночних показників підприєиств, шо надають послуги ТО та Р АТЗ");
+        System.out.println("2.Визначення підприємств, на ВТБ  яких може здійснюватись ТО та Р АТЗ ПАТ-партнерів");
+        if (countRez()>0){
+            System.out.println("3.Tnp+Tnrez-Tasp>0");
+            System.out.println("4.Проведення переговорів з керівництвом потенційних базових підприємств щодо здійснення на їх потужностях робіт з ТО та Р АТЗ ПАТ-партнерів");
+            System.out.println("ІІ.Етап визначення нормативних показників для зіставлення з фактичними значеннями показників підприємств");
+            System.out.println("5.Визначення якісного та кількісного складу експертної групи");
+            System.out.println("6.Формування експертної групи");
+            System.out.println("7.Проведення прикладного дослідження, шляхом опитування експертів щодо визначення нормативних значень оціночних показників");
+            System.out.println("8.Розрахунок комплексних та нормативних оціночних показників");
+            System.out.println("ІІІ.Етап визначення суб'єктів сертифікації");
+            System.out.println("9.Подача органом сертифiкацii пропозицii проходження сертифiкацii потенцiйному ПАТ-лiдеру.");
+            System.out.println("10.Керiвництво пiдприємства погоджується на сертифiкацiю?(Y/N)");
+            String result = null;
+            try {
+                result = reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (result.equals("N")) {
+                System.out.println("Ви не отримаєте сертифікат");
+            } else {
+                System.out.println("11.Подача запиту на проведення сертифiкацiї в орган сертифікацiї");
+                System.out.println("12.Розгляд запиту органом сертифiкацiї");
+                System.out.println("13.Формування експертної комiсiї для проведення сертифiкацiї");
+                System.out.println("IV. Етап визначення відповідності підприємств умовам сертифікації");
+                System.out.println("14.Зiставлення якiсних показникiв дiяльностi ПАТ, що надають послуги з ТО та ПР паркiв ТЗ");
+                countCgvp();
+                countCgk();
+                countCgf();
+                countCgp();
+
+            }
+        }
+        else
+            System.out.println("Здійснюється пошук підприємств, на ВТБ  яких може здійснюватись ТО та Р АТЗ ПАТ-партнерів");
+        }
+
+    public static float countRez(){
         try {
-            result = reader.readLine();
-        } catch (IOException e) {
+            System.out.println("Введіть Tnp");
+            Tnp = Float.parseFloat(reader.readLine());
+            System.out.println("Введіть Tnrez");
+            Tnrez = Float.parseFloat(reader.readLine());
+            System.out.println("Введіть Tasp");
+            Tasp = Float.parseFloat(reader.readLine());
+        }
+        catch (IOException e){
             e.printStackTrace();
         }
-        if (result.equals("N")) {
-            System.out.println("Ви не отримаєте сертифікат");
-        } else {
-            System.out.println("5.Подача запиту на проведення сертифiкацiї в орган сертифікацiї");
-            System.out.println("6.Розгляд запиту органом сертифiкацiї");
-            System.out.println("7.Формування експертної комiсiї для проведення сертифiкацiї");
-            System.out.println("8.Зiставлення якiсних показникiв дiяльностi ПАТ, що надають послуги з ТО та ПР паркiв ТЗ");
-            countCgvp();
-            countCgp();
-            countCgk();
-            countCgf();
-        }
+
+        return Tnp+Tnrez-Tasp;
     }
     public static void countCgvp() {
-        System.out.println("9.Оцiнка показникiв групи Внутрiшнi бiзнес-процеси Cgvp > NCgvp:");
+        System.out.println("15. Зіставлення комплексного показника \"Внутрішні бізнес-процеси\" Cgvp>NCgvp");
         try {
             System.out.println("Введiть Wmvp >");
             Wmvp = Float.parseFloat(reader.readLine());
@@ -122,7 +159,7 @@ public class Certification {
         }
     }
     public static void countCgp(){
-        System.out.println("10. Оцiнка показникiв групи Персонал Cgp>NCgp: ");
+        System.out.println("21. Зіставлення комплексного показника \"Персонал\" Cgp>NCgp");
         try {
             System.out.println("Введiть Wzp >");
             Wzp = Float.parseFloat(reader.readLine());
@@ -147,7 +184,7 @@ public class Certification {
         }
     }
     public static void countCgk(){
-        System.out.println("11. Оцiнка показникiв групи Клiєнти Cgk>NCgk:");
+        System.out.println("17. Зіставлення комплексного показника \"Клієнти\" Cgk>NCgk");
         try {
             System.out.println("Введiть Woch >");
             Woch = Float.parseFloat(reader.readLine());
@@ -188,7 +225,7 @@ public class Certification {
         }
     }
     public static void countCgf(){
-        System.out.println("12. Оцiнка показникiв групи Фiнанси Cgf>NCgf:");
+        System.out.println("19. Зіставлення комплексного показники \"Фінанси\" Cgf>NCgf");
         try {
             System.out.println("Введiть Wn >");
             Wn = Float.parseFloat(reader.readLine());
@@ -246,8 +283,8 @@ public class Certification {
             float r =round(N-C,3);
             System.out.println("Значення комплексного показника \""
                     + n + "\" вашого пiдприємства " + C + " нормативне значення " + N +
-            ". Отже, рiвень вашого пiдприємства за даним комплексним показником не задовольняє вимогам сертифiкацiї. Вам необхiдно привести комплексний показник \""
-            +n+"\" у вiдповiднiсть до нормативного, збiльшивши його рiвень  на "+r);
+                    ". Отже, рiвень вашого пiдприємства за даним комплексним показником не задовольняє вимогам сертифiкацiї. Вам необхiдно привести комплексний показник \""
+                    +n+"\" у вiдповiднiсть до нормативного, збiльшивши його рiвень  на "+r);
         }
         else
             System.out.println("Значення комплексного показника \""
@@ -255,7 +292,3 @@ public class Certification {
                     " нормативне значення " + N+". Отже, рiвень вашого пiдприємства задовольняє вимогам сертифiкацiї.");
     }
 }
-
-
-
-
